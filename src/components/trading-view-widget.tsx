@@ -1,7 +1,12 @@
 "use client";
+
 import { useEffect, useRef, memo } from "react";
 
-function TradingViewWidget() {
+interface TradingViewWidgetProps {
+  symbol: string;
+}
+
+function TradingViewWidget({ symbol }: TradingViewWidgetProps) {
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -15,7 +20,7 @@ function TradingViewWidget() {
 
     const scriptContent = JSON.stringify({
       autosize: true,
-      symbol: "CRYPTO:BTCUSD",
+      symbol: `CRYPTO:${symbol}USD`,
       timezone: "Etc/UTC",
       theme: "light",
       style: "2",
@@ -38,14 +43,14 @@ function TradingViewWidget() {
         container.current.removeChild(script);
       }
     };
-  }, []);
+  }, [symbol]);
 
   return (
     <div
       className="tradingview-widget-container"
       ref={container}
       style={{ height: "100%", width: "100%" }}
-    ></div>
+    />
   );
 }
 
