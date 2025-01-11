@@ -1,22 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Suspense } from "react";
-
-import { notFound } from "next/navigation";
-
-import CoinPage from "@/pages/home";
-import { CoinData } from "@/types/api";
-import { getCoinData } from "../actions/coins";
 import Loading from "@/components/ui/loading";
 import Navbar from "@/components/ui/navbar";
+import CoinPage from "@/pages/home";
+import { CoinData } from "@/types/api";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { getCoinData } from "../actions/coins";
 
-type PageProps = {
-  params: { coinId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+type Params = Promise<{ coinId: string }>;
 
-export default async function Page({ params, searchParams }: PageProps) {
-  const { coinId } = await params; // Await params
-
+export default async function Page({ params }: { params: Params }) {
+  const { coinId } = await params;
   const data = await getCoinData(coinId);
 
   if ("error" in data) {
