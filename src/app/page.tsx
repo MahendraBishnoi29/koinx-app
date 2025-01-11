@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/ui/navbar";
 
 import CoinPage from "@/pages/home";
 import { CoinData } from "@/types/api";

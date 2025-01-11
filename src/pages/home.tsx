@@ -1,14 +1,14 @@
-import About from "@/components/about";
-import BreadCrumb from "@/components/breadcrumb";
-import Crypto from "@/components/crypto";
-import GetStartedBanner from "@/components/get-started-banner";
-import PerformanceSection from "@/components/performance-section";
-import PerformanceTabs from "@/components/performance-tabs";
-import SentimentSection from "@/components/sentiment";
-import SuggestedCoins from "@/components/suggested-coins";
+import About from "@/components/crypto/about";
+import BreadCrumb from "@/components/ui/breadcrumb";
+import Crypto from "@/components/crypto/crypto";
+import GetStartedBanner from "@/components/ui/get-started-banner";
+import PerformanceSection from "@/components/crypto/performance-section";
+import PerformanceTabs from "@/components/crypto/performance-tabs";
+import SentimentSection from "@/components/crypto/sentiment";
+import SuggestedCoins from "@/components/coins/suggested-coins";
 import TeamCard from "@/components/team-cards";
 import Tokenomics from "@/components/tokenomics";
-import TrendingCoins from "@/components/trending-coins";
+import TrendingCoins from "@/components/coins/trending-coins";
 import { CoinData } from "@/types/api";
 
 interface CoinPageProps {

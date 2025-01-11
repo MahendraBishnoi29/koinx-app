@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 
 import { notFound } from "next/navigation";
-import Navbar from "@/components/navbar";
-import Loading from "@/components/loading";
+import Navbar from "@/components/ui/navbar";
+import Loading from "@/components/ui/loading";
 import CoinPage from "@/pages/home";
 import { CoinData } from "@/types/api";
 import { getCoinData } from "../actions/coins";
