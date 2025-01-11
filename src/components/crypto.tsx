@@ -10,7 +10,7 @@ async function CryptoPrice() {
   const data = await getBitcoinPrice();
 
   if ("error" in data) {
-    return <Error message={data.error} />;
+    return <Error message={data.error as string} />;
   }
 
   const cryptoData = data as CryptoPrice;
