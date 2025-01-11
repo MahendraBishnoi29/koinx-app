@@ -16,6 +16,9 @@ interface CoinPageProps {
 }
 
 function CoinPage({ coinData }: CoinPageProps) {
+  if (!coinData) {
+    return null;
+  }
   return (
     <div className="h-full w-screen bg-slate-200/40">
       <BreadCrumb coinName={coinData.name} coinId={coinData.id} />
