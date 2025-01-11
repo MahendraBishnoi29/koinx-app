@@ -1,26 +1,26 @@
 import { Suspense } from "react";
 
 import { notFound } from "next/navigation";
-import Navbar from "@/components/ui/navbar";
-import Loading from "@/components/ui/loading";
+
 import CoinPage from "@/pages/home";
 import { CoinData } from "@/types/api";
 import { getCoinData } from "../actions/coins";
+import Loading from "@/components/ui/loading";
 
 interface PageProps {
   params: {
     coinId: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
   const data = await getCoinData(params.coinId);
 
   if ("error" in data) {
     notFound();
   }
 
-  // Type assertion since we've already checked for error
   const coinData = data as CoinData;
 
   return (
