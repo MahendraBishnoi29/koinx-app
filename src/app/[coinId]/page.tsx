@@ -1,11 +1,11 @@
-import { Suspense } from "react";
-
-import { notFound } from "next/navigation";
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import Loading from "@/components/ui/loading";
+import Navbar from "@/components/ui/navbar";
 import CoinPage from "@/pages/home";
 import { CoinData } from "@/types/api";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getCoinData } from "../actions/coins";
-import Loading from "@/components/ui/loading";
 
 interface PageProps {
   params: {
