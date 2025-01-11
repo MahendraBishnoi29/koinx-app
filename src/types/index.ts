@@ -8,6 +8,7 @@ export interface Coin {
         usd: number;
       };
     };
+    sparkline?: string;
   };
 }
 
