@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Features
 
-## Getting Started
+1. **Bitcoin Price Display**:
 
-First, run the development server:
+   - Utilizes Coingecko's `/simple/price` API to fetch Bitcoin's price in USD and INR.
+   - Displays the 24-hour price change percentage in USD.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **TradingView Chart**:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   - Integrates TradingView's advanced chart widget for BTCUSD.
+   - Widget is customized to closely match the Figma design.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Trending Coins (24h)**:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   - Fetches the top 3 trending coins using Coingecko's `/search/trending` API.
+   - Displays coin details such as name, logo, and symbol.
 
-## Learn More
+4. **You May Also Like**:
 
-To learn more about Next.js, take a look at the following resources:
+   - Horizontal carousel showcasing trending coins.
+   - Includes logo, symbol, price, price change, and sparkline graph for each coin.
+   - The carousel is horizontally scrollable and responsive.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. **Responsive Design**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   - Ensures the UI adapts seamlessly to various screen sizes, as specified in the Figma design.
 
-## Deploy on Vercel
+6. **Placeholder Components**:
+   - Text/image-based components use placeholders where API data isn’t applicable.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Completed Optional Tasks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Dynamic Token Display**:
+
+   - Supports dynamic token display via the URL (e.g., `/bitcoin`, `/ethereum`).
+   - Fetches data for the token using Coingecko's `/coins/{id}` API.
+   - Renders a TradingView chart based on the token symbol.
+
+2. **Enhanced User Experience**:
+   - Dynamically updates the chart and token details based on the token selected in the URL.
+
+---
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/MahendraBishnoi29/koinx-app.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd koinx-app
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Add ENV Variables to .env.local file
+
+   ```
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   NEXT_PUBLIC_COINGECKO_URL=https://api.coingecko.com/api/v3
+   ```
+
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+The application will be accessible at `http://localhost:3000`.
+
+---
+
+## Technologies Used
+
+- **Frontend**: Next.JS, TailwindCSS
+- **APIs**: Coingecko, TradingView
+- **Deployment**: Vercel
+
+---
+
+## Screenshots
+
+![image](https://github.com/user-attachments/assets/ce1a0ee5-f8b3-4a56-8338-ab0c0402be5a)
+
+![image](https://github.com/user-attachments/assets/e8cf6784-98e0-4790-893c-e7131c5def69)
