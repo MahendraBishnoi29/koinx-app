@@ -1,16 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Navbar from "@/components/ui/navbar";
 import CoinPage from "@/pages/home";
 import { CoinData } from "@/types/api";
 import NotFound from "./not-found";
 import { getCoinData } from "./actions/coins";
 
-type Props = {
-  params: Promise<{ coinId: string }>;
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+type Params = Promise<{ coinId: string }>;
 
-export default async function Home({ params, searchParams }: Props) {
+export default async function Home({ params }: { params: Params }) {
   const { coinId } = await params;
   const data = await getCoinData(coinId);
 
