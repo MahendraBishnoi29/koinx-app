@@ -1,32 +1,43 @@
 "use client";
-
-import React, { useEffect, useRef, memo } from "react";
+import { useEffect, useRef, memo } from "react";
 
 function TradingViewWidget() {
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!container.current) return;
+
     const script = document.createElement("script");
     script.src =
       "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
     script.type = "text/javascript";
     script.async = true;
-    script.innerHTML = `
-        {
-          "autosize": true,
-          "symbol": "CRYPTO:BTCUSD",
-          "interval": "D",
-          "timezone": "Etc/UTC",
-          "theme": "light",
-          "style": "2",
-          "locale": "en",
-          "hide_top_toolbar": true,
-          "allow_symbol_change": true,
-          "calendar": false,
-          "support_host": "https://www.tradingview.com"
-        }`;
+
+    const scriptContent = JSON.stringify({
+      autosize: true,
+      symbol: "CRYPTO:BTCUSD",
+      timezone: "Etc/UTC",
+      theme: "light",
+      style: "2",
+      locale: "en",
+      enable_publishing: false,
+      hide_top_toolbar: true,
+      hide_legend: true,
+      range: "5D",
+      save_image: false,
+      calendar: false,
+      hide_volume: true,
+      support_host: "https://www.tradingview.com",
+    });
+
+    script.innerHTML = scriptContent;
     container.current.appendChild(script);
+
+    return () => {
+      if (container.current && script.parentNode) {
+        container.current.removeChild(script);
+      }
+    };
   }, []);
 
   return (
