@@ -1,77 +1,116 @@
-import { Suspense } from "react";
+"use client";
 import { getTrendingCoins } from "@/lib/api";
 import { TrendingCoin } from "@/types/api";
-import Image from "next/image";
+import { Suspense, useEffect, useRef, useState } from "react";
+import CryptoCard from "./crypto-card";
 import Error from "./error";
 import Loading from "./loading";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-function CryptoCard({ cryptoData }: { cryptoData: TrendingCoin["item"] }) {
-  return (
-    <div className="lg:w-[300px] rounded-2xl p-5 border-2 my-2 mr-2">
-      <div className="flex items-center space-x-2">
-        <Image
-          src={cryptoData.large}
-          alt={cryptoData.name}
-          width={24}
-          height={24}
-          className="rounded-full"
-        />
-        <span className="text-[16px] font-normal">{cryptoData.name}</span>
-        <span
-          className={`text-${
-            cryptoData.data.price_change_percentage_24h.usd > 0
-              ? "green"
-              : "red"
-          }-500 bg-${
-            cryptoData.data.price_change_percentage_24h.usd > 0
-              ? "#0AB27D"
-              : "#FF0000"
-          }/10 text-xs font-normal pr-10`}
-        >
-          {cryptoData.data.price_change_percentage_24h.usd.toFixed(2)}%
-        </span>
-      </div>
-      <div className="text-xl text-[#171717] font-medium mt-2">
-        {cryptoData.data.price}
-      </div>
-      <Image
-        src={
-          cryptoData.sparkline ||
-          "https://www.coingecko.com/coins/33566/sparkline.svg"
-        }
-        alt={`${cryptoData.name} price chart`}
-        width={300}
-        height={80}
-        className="w-full h-20"
-      />
-    </div>
-  );
-}
+function TrendingCoinsSection() {
+  const youMayLikeRef = useRef<HTMLDivElement>(null!);
+  const trendingCoinsRef = useRef<HTMLDivElement>(null!);
 
-async function TrendingCoinsSection() {
-  const data = await getTrendingCoins();
+  const [cryptoData, setCryptoData] = useState<TrendingCoin[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  if ("error" in data) {
-    return <Error message={data.error as string} />;
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getTrendingCoins();
+
+      if ("error" in data) {
+        setError(data.error as string);
+      } else {
+        setCryptoData(data as TrendingCoin[]);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (error) {
+    return <Error message={error} />;
   }
 
-  const cryptoData = data as TrendingCoin[];
+  if (!cryptoData) {
+    return <Loading />;
+  }
+
+  const handleScroll = (
+    ref: React.RefObject<HTMLDivElement>,
+    direction: "left" | "right"
+  ) => {
+    if (ref.current) {
+      const scrollAmount = direction === "left" ? -300 : 300;
+      ref.current.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <>
-      <div className="mt-4 flex justify-between overflow-x-scroll overflow-auto">
-        {cryptoData.slice(0, 5).map((crypto, index) => (
-          <CryptoCard key={index} cryptoData={crypto.item} />
-        ))}
+      {/* You May Also Like Section */}
+      <div className="relative mt-4">
+        {/* Left Scroll Button */}
+        <button
+          onClick={() => handleScroll(youMayLikeRef, "left")}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 z-10 shadow-md"
+        >
+          <MdChevronLeft className="h-5 w-5" />
+        </button>
+
+        {/* Crypto Cards Container */}
+        <div
+          ref={youMayLikeRef}
+          className="flex justify-between overflow-x-auto overflow-hidden scrollbar-hide"
+        >
+          {cryptoData.slice(0, 5).map((crypto, index) => (
+            <CryptoCard key={index} cryptoData={crypto.item} />
+          ))}
+        </div>
+
+        {/* Right Scroll Button */}
+        <button
+          onClick={() => handleScroll(youMayLikeRef, "right")}
+          className="absolute right-0 top-1/2 transform h-[34px] w-[34px] -translate-y-1/2 bg-white rounded-full p-2 z-10 shadow-md"
+        >
+          <MdChevronRight className="h-5 w-5" />
+        </button>
       </div>
 
       <div className="text-[#202020] text-2xl font-semibold mt-6">
         Trending Coins
       </div>
-      <div className="mt-4 flex justify-between overflow-x-auto">
-        {cryptoData.slice(1, 6).map((crypto) => (
-          <CryptoCard key={crypto.item.id} cryptoData={crypto.item} />
-        ))}
+
+      {/* Trending Coins Section */}
+      <div className="relative mt-4">
+        {/* Left Scroll Button */}
+        <button
+          onClick={() => handleScroll(trendingCoinsRef, "left")}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 z-10 shadow-md"
+        >
+          <MdChevronLeft className="h-5 w-5" />
+        </button>
+
+        {/* Crypto Cards Container */}
+        <div
+          ref={trendingCoinsRef}
+          className="flex justify-between overflow-x-auto overflow-hidden scrollbar-hide"
+        >
+          {cryptoData.slice(1, 6).map((crypto) => (
+            <CryptoCard key={crypto.item.id} cryptoData={crypto.item} />
+          ))}
+        </div>
+
+        {/* Right Scroll Button */}
+        <button
+          onClick={() => handleScroll(trendingCoinsRef, "right")}
+          className="absolute right-0 top-1/2 transform h-[34px] w-[34px] -translate-y-1/2 bg-white rounded-full p-2 z-10 shadow-md"
+        >
+          <MdChevronRight className="h-5 w-5" />
+        </button>
       </div>
     </>
   );
