@@ -1,6 +1,6 @@
-import { getTrendingCoins } from "@/lib/api";
 import type { Coin as CoinType, TransformedCoin } from "@/types";
 import Coin from "./coin";
+import { getTrendingCoins } from "@/app/actions/coins";
 
 interface CoinProps {
   symbol: string;

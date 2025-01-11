@@ -1,10 +1,11 @@
 import { Suspense } from "react";
-import { getCoinData } from "@/lib/api";
+
 import { notFound } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Loading from "@/components/loading";
 import CoinPage from "@/pages/home";
 import { CoinData } from "@/types/api";
+import { getCoinData } from "../actions/coins";
 
 interface PageProps {
   params: {

@@ -1,11 +1,12 @@
 "use client";
-import { getTrendingCoins } from "@/lib/api";
+
 import { TrendingCoin } from "@/types/api";
 import { Suspense, useEffect, useRef, useState } from "react";
 import CryptoCard from "./crypto-card";
 import Error from "./error";
 import Loading from "./loading";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { getTrendingCoins } from "@/app/actions/coins";
 
 function TrendingCoinsSection() {
   const youMayLikeRef = useRef<HTMLDivElement>(null!);

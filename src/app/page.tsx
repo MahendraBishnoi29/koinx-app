@@ -1,8 +1,9 @@
 import Navbar from "@/components/navbar";
-import { getCoinData } from "@/lib/api";
+
 import CoinPage from "@/pages/home";
 import { CoinData } from "@/types/api";
 import NotFound from "./not-found";
+import { getCoinData } from "./actions/coins";
 
 export default async function Home({ params }: { params: { coinId: string } }) {
   const data = await getCoinData(params.coinId);
